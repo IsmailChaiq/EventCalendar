@@ -83,7 +83,7 @@ namespace Calendar
 
         private void btnAnnuler_Click(object sender, EventArgs e)
         {
-            this.SendToBack();
+            this.Visible = false;
         }
 
         private void btnConfirmer_Click(object sender, EventArgs e)

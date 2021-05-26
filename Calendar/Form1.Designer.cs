@@ -143,7 +143,7 @@ namespace Calendar
             this.ClientSize = new System.Drawing.Size(1244, 604);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.monthCalendar1);
-            this.Controls.Add(this.addEvent);
+            dataGridView1.Controls.Add(this.addEvent);
             this.Controls.Add(this.event1);
             this.Name = "Form1";
             this.Text = "Form1";

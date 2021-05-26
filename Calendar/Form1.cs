@@ -15,6 +15,8 @@ namespace Calendar
     {
         CultureInfo cult = new CultureInfo("fr-FR");
         List<DateTime> tempWeek = new List<DateTime>();
+        List<Event> lstEvent = new List<Event>();
+
 
         public Form1()
         {
@@ -83,6 +85,7 @@ namespace Calendar
             dataGridView1.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
 
             addEvent.confirmEvent += confirmEvent;
+            addEvent.Visible = false;
             addEvent.SendToBack();
 
         }
@@ -114,26 +117,33 @@ namespace Calendar
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             
-            addEvent.Top= dataGridView1.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false).Top + 48;
-            addEvent.Left = dataGridView1.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false).Left + 247;
+            addEvent.Top= dataGridView1.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false).Top/* + 48*/;
+            addEvent.Left = dataGridView1.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false).Left/* + 247*/;
             addEvent.Visible = true;
             addEvent.BringToFront();
         }
         private void confirmEvent()
         {
             clsEvent _event = new clsEvent(
-                DateTime.Parse(tempWeek[dataGridView1.CurrentCell.ColumnIndex].ToString("d")+ " " + dataGridView1.CurrentRow.HeaderCell.Value),
+                DateTime.Parse(tempWeek[dataGridView1.CurrentCell.ColumnIndex].ToString("d") + " " + dataGridView1.CurrentRow.HeaderCell.Value),
                 addEvent.getDuree,
                 addEvent.getName,
                 addEvent.getInfos,
-                addEvent.getColor );
+                addEvent.getColor);
             clsEvent.listEvent.Add(_event);
-            event1.ClsEvent = _event;
-            event1.Location = addEvent.Location;
-            event1.Width = dataGridView1.CurrentCell.Size.Width;
-            event1.Height = dataGridView1.CurrentRow.Height * _event.duree;
-            event1.BringToFront();
-            addEvent.SendToBack();
+            
+            Event e1 = new Event();
+            e1.ClsEvent = _event;
+            e1.Location = addEvent.Location;
+            e1.Width = dataGridView1.CurrentCell.Size.Width;
+            e1.Height = dataGridView1.CurrentRow.Height * _event.duree;
+            e1.BringToFront();
+            lstEvent.Add(e1);
+            dataGridView1.Controls.Add(lstEvent[lstEvent.Count - 1]);
+            //this.Controls.Add(e1);
+            addEvent.Visible = false; 
+
+
         }
     }
 }
