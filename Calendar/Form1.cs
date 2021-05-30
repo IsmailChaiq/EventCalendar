@@ -116,11 +116,12 @@ namespace Calendar
         
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+            if (tempWeek.Count != 0) { 
             addEvent.Top= dataGridView1.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false).Top/* + 48*/;
             addEvent.Left = dataGridView1.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false).Left/* + 247*/;
             addEvent.Visible = true;
             addEvent.BringToFront();
+            }
         }
         private void confirmEvent()
         {
@@ -130,8 +131,11 @@ namespace Calendar
                 addEvent.getName,
                 addEvent.getInfos,
                 addEvent.getColor);
+            addEvent.objEvent = _event;
             clsEvent.listEvent.Add(_event);
-            
+            clsEvent.saveEvents();
+
+
             Event e1 = new Event();
             e1.ClsEvent = _event;
             e1.Location = addEvent.Location;

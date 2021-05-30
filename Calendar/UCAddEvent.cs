@@ -13,6 +13,18 @@ namespace Calendar
     public partial class UCAddEvent : UserControl
     {
         public event Action confirmEvent;
+        private clsEvent _objEvent;
+        public clsEvent objEvent
+        {
+            get
+            {
+                return _objEvent;
+            }
+            set
+            {
+                _objEvent = value;
+            }
+        }
         public string getDuree
         {
             get
@@ -88,6 +100,7 @@ namespace Calendar
 
         private void btnConfirmer_Click(object sender, EventArgs e)
         {
+
             confirmEvent();
         }
     }
