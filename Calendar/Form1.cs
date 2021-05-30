@@ -15,7 +15,8 @@ namespace Calendar
     {
         CultureInfo cult = new CultureInfo("fr-FR");
         List<DateTime> tempWeek = new List<DateTime>();
-        List<Event> lstEvent = new List<Event>();
+        List<Event> lstUCEvent = new List<Event>();
+
 
 
         public Form1()
@@ -34,6 +35,9 @@ namespace Calendar
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
         {
+            lstUCEvent.Clear();
+            dataGridView1.Controls.Clear();
+            dataGridView1.Controls.Add(addEvent);
             DateTime startDate = e.Start;
             DateTime endDate = e.End;
             DateTime _tempDate;
@@ -68,6 +72,7 @@ namespace Calendar
                 dataGridView1.Columns[i].HeaderText = tempWeek[i].ToString("D", cult);
                 //dataGridView1.Columns[i].HeaderText = tempWeek[i].DayOfWeek.ToString() + " " + tempWeek[i].Day.ToString() + " " + tempWeek[i].ToString("MMMM") + " " + tempWeek[i].ToString("yyyy");
             }
+            loadEvents();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -142,12 +147,57 @@ namespace Calendar
             e1.Width = dataGridView1.CurrentCell.Size.Width;
             e1.Height = dataGridView1.CurrentRow.Height * _event.duree;
             e1.BringToFront();
-            lstEvent.Add(e1);
-            dataGridView1.Controls.Add(lstEvent[lstEvent.Count - 1]);
+            lstUCEvent.Add(e1);
+            dataGridView1.Controls.Add(lstUCEvent[lstUCEvent.Count - 1]);
             //this.Controls.Add(e1);
-            addEvent.Visible = false; 
+            addEvent.Visible = false;
+            loadEvents();
 
+        }
 
+        public void loadEvents()
+        {
+            var resultat = from x in clsEvent.listEvent
+                           where x.startDate > tempWeek[0] && x.startDate < tempWeek[6]
+                           select x;
+            List<clsEvent> _lstEvents = resultat.ToList();
+            foreach (clsEvent _event in _lstEvents)
+            {
+                int x = -1, y = -1;
+                for (int i = 0; i < dataGridView1.Columns.Count; i++)
+                {
+                    if (dataGridView1.Columns[i].HeaderText == _event.startDate.ToString("D", cult))
+                    {
+                        x = i;
+
+                    }
+                }
+                for (int j = 0; j < dataGridView1.Rows.Count; j++)
+                {
+                    if (_event.startDate.ToString("t", cult).EndsWith(dataGridView1.Rows[j].HeaderCell.Value.ToString()))
+                    {
+
+                        y = j;
+                    }
+                }
+                if (x >= 0 && y >= 0)
+                {
+                    Event e1 = new Event();
+                    e1.ClsEvent = _event;
+                    e1.Top = dataGridView1.GetCellDisplayRectangle(x,y,false).Top;
+                    e1.Left = dataGridView1.GetCellDisplayRectangle(x,y,false).Left;
+                    //e1.Location = addEvent.Location;
+                    e1.Width = dataGridView1.Rows[y].Cells[x].Size.Width;
+                    e1.Height = dataGridView1.Rows[y].Height * _event.duree;
+                    e1.BringToFront();
+                    lstUCEvent.Add(e1);
+                    //dataGridView1.Controls.Add(lstUCEvent[lstUCEvent.Count - 1]);
+                    dataGridView1.Controls.Add(lstUCEvent[lstUCEvent.Count - 1]);
+                    
+
+                }
+
+            }
         }
     }
 }
