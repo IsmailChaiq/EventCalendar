@@ -23,6 +23,12 @@ namespace Calendar
             set
             {
                 _objEvent = value;
+                txtNom.Text = _objEvent.name;
+                txtinfos.Text = _objEvent.infos;
+                pnlColor.BackColor = _objEvent.color;
+                cmbDebut.Text = _objEvent.duree + "h";
+
+
             }
         }
         public string getDuree
@@ -64,6 +70,7 @@ namespace Calendar
             {
                 cmbDebut.Items.Add(i + "h");
             }
+            cmbDebut.Text = "1h";
             cmbColor.Items.Add("Blanc");
             cmbColor.Items.Add("Rouge");
             cmbColor.Items.Add("Vert");

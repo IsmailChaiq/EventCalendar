@@ -141,18 +141,24 @@ namespace Calendar
             clsEvent.saveEvents();
 
 
-            Event e1 = new Event();
-            e1.ClsEvent = _event;
-            e1.Location = addEvent.Location;
-            e1.Width = dataGridView1.CurrentCell.Size.Width;
-            e1.Height = dataGridView1.CurrentRow.Height * _event.duree;
-            e1.BringToFront();
-            lstUCEvent.Add(e1);
-            dataGridView1.Controls.Add(lstUCEvent[lstUCEvent.Count - 1]);
+            //Event e1 = new Event();
+            //e1.ClsEvent = _event;
+            //e1.Location = addEvent.Location;
+            //e1.Width = dataGridView1.CurrentCell.Size.Width;
+            //e1.Height = dataGridView1.CurrentRow.Height * _event.duree;
+            //e1.BringToFront();
+            //lstUCEvent.Add(e1);
+            //dataGridView1.Controls.Add(lstUCEvent[lstUCEvent.Count - 1]);
             //this.Controls.Add(e1);
             addEvent.Visible = false;
             loadEvents();
 
+        }
+
+        public void loadClickedEvent(object sender, EventArgs e)
+        {
+            addEvent.objEvent = ((Event)sender).ClsEvent;
+            addEvent.Visible = true;
         }
 
         public void loadEvents()
@@ -189,6 +195,8 @@ namespace Calendar
                     //e1.Location = addEvent.Location;
                     e1.Width = dataGridView1.Rows[y].Cells[x].Size.Width;
                     e1.Height = dataGridView1.Rows[y].Height * _event.duree;
+                    e1.MouseDoubleClick += loadClickedEvent;
+
                     e1.BringToFront();
                     lstUCEvent.Add(e1);
                     //dataGridView1.Controls.Add(lstUCEvent[lstUCEvent.Count - 1]);
