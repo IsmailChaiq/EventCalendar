@@ -39,6 +39,7 @@
             this.btnAnnuler = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.txtNom = new System.Windows.Forms.TextBox();
+            this.btnSupprimer = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -138,9 +139,20 @@
             this.txtNom.Size = new System.Drawing.Size(100, 20);
             this.txtNom.TabIndex = 12;
             // 
+            // btnSupprimer
+            // 
+            this.btnSupprimer.Location = new System.Drawing.Point(3, 135);
+            this.btnSupprimer.Name = "btnSupprimer";
+            this.btnSupprimer.Size = new System.Drawing.Size(82, 19);
+            this.btnSupprimer.TabIndex = 13;
+            this.btnSupprimer.Text = "Supprimer";
+            this.btnSupprimer.UseVisualStyleBackColor = true;
+            this.btnSupprimer.Click += new System.EventHandler(this.btnSupprimer_Click);
+            // 
             // UCAddEvent
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.Controls.Add(this.btnSupprimer);
             this.Controls.Add(this.txtNom);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnAnnuler);
@@ -173,5 +185,7 @@
         private System.Windows.Forms.Button btnAnnuler;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtNom;
+        private System.Windows.Forms.Button btnSupprimer;
+
     }
 }

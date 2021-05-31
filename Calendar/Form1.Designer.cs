@@ -41,6 +41,7 @@ namespace Calendar
             this.addEvent = new Calendar.UCAddEvent();
             this.event1 = new Calendar.Event();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.dataGridView1.SuspendLayout();
             this.SuspendLayout();
             // 
             // monthCalendar1
@@ -68,6 +69,7 @@ namespace Calendar
             this.Day5,
             this.Day6,
             this.Day7});
+            this.dataGridView1.Controls.Add(this.addEvent);
             this.dataGridView1.Location = new System.Drawing.Point(247, 49);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.None;
@@ -126,11 +128,13 @@ namespace Calendar
             // 
             this.addEvent.Location = new System.Drawing.Point(287, 70);
             this.addEvent.Name = "addEvent";
+            this.addEvent.objEvent = null;
             this.addEvent.Size = new System.Drawing.Size(318, 159);
             this.addEvent.TabIndex = 2;
             // 
             // event1
             // 
+            this.event1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.event1.Location = new System.Drawing.Point(287, 70);
             this.event1.Name = "event1";
             this.event1.Size = new System.Drawing.Size(175, 135);
@@ -143,12 +147,12 @@ namespace Calendar
             this.ClientSize = new System.Drawing.Size(1244, 604);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.monthCalendar1);
-            dataGridView1.Controls.Add(this.addEvent);
             this.Controls.Add(this.event1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.dataGridView1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

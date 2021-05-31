@@ -23,14 +23,45 @@ namespace Calendar
             set
             {
                 _objEvent = value;
-                txtNom.Text = _objEvent.name;
-                txtinfos.Text = _objEvent.infos;
-                pnlColor.BackColor = _objEvent.color;
-                cmbDebut.Text = _objEvent.duree + "h";
+                if (value != null)
+                {
+                    txtNom.Text = _objEvent.name;
+                    txtinfos.Text = _objEvent.infos;
+                    pnlColor.BackColor = _objEvent.color;
+                    cmbDebut.Text = _objEvent.duree + "h";
+                    btnSupprimer.Visible = true;
+                    if (_objEvent.color == Color.Red)
+                    {
+                        cmbColor.Text = "Rouge";
+                    }
+                    else if (_objEvent.color == Color.White)
+                    {
+                        cmbColor.Text = "Blanc";
+
+                    }
+                    else if (_objEvent.color == Color.Black)
+                    {
+                        cmbColor.Text = "Noir";
+
+                    }
+                    else if (_objEvent.color == Color.Blue)
+                    {
+                        cmbColor.Text = "Bleu";
+
+                    }
+                    else if (_objEvent.color == Color.Green)
+                    {
+                        cmbColor.Text = "Vert";
+
+                    }
+                }
+                else { btnSupprimer.Visible = false; }
 
 
             }
         }
+        public Button BtnSupprimer { get => btnSupprimer; set => btnSupprimer = value; }
+
         public string getDuree
         {
             get
@@ -62,6 +93,7 @@ namespace Calendar
         public UCAddEvent()
         {
             InitializeComponent();
+            btnSupprimer.Visible = false;
         }
 
         private void UCAddEvent_Load(object sender, EventArgs e)
@@ -99,7 +131,13 @@ namespace Calendar
                     break;
             }
         }
-
+        public void clearForm()
+        {
+            txtNom.Text = "";
+            txtinfos.Text = "";
+            cmbDebut.Text = "1h";
+            cmbColor.Text = "Blanc";
+        }
         private void btnAnnuler_Click(object sender, EventArgs e)
         {
             this.Visible = false;
@@ -109,6 +147,11 @@ namespace Calendar
         {
 
             confirmEvent();
+        }
+
+        private void btnSupprimer_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

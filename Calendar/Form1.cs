@@ -72,6 +72,7 @@ namespace Calendar
                 dataGridView1.Columns[i].HeaderText = tempWeek[i].ToString("D", cult);
                 //dataGridView1.Columns[i].HeaderText = tempWeek[i].DayOfWeek.ToString() + " " + tempWeek[i].Day.ToString() + " " + tempWeek[i].ToString("MMMM") + " " + tempWeek[i].ToString("yyyy");
             }
+            addEvent.Visible = false;
             loadEvents();
         }
 
@@ -90,6 +91,7 @@ namespace Calendar
             dataGridView1.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
 
             addEvent.confirmEvent += confirmEvent;
+            addEvent.BtnSupprimer.Click += deleteEvent;
             addEvent.Visible = false;
             addEvent.SendToBack();
 
@@ -124,6 +126,8 @@ namespace Calendar
             if (tempWeek.Count != 0) { 
             addEvent.Top= dataGridView1.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false).Top/* + 48*/;
             addEvent.Left = dataGridView1.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false).Left/* + 247*/;
+            addEvent.BtnSupprimer.Visible = false;
+            addEvent.clearForm();
             addEvent.Visible = true;
             addEvent.BringToFront();
             }
@@ -158,11 +162,15 @@ namespace Calendar
         public void loadClickedEvent(object sender, EventArgs e)
         {
             addEvent.objEvent = ((Event)sender).ClsEvent;
+            addEvent.BringToFront();
             addEvent.Visible = true;
         }
 
         public void loadEvents()
         {
+            lstUCEvent.Clear();
+            dataGridView1.Controls.Clear();
+            dataGridView1.Controls.Add(addEvent);
             var resultat = from x in clsEvent.listEvent
                            where x.startDate > tempWeek[0] && x.startDate < tempWeek[6]
                            select x;
@@ -195,17 +203,28 @@ namespace Calendar
                     //e1.Location = addEvent.Location;
                     e1.Width = dataGridView1.Rows[y].Cells[x].Size.Width;
                     e1.Height = dataGridView1.Rows[y].Height * _event.duree;
-                    e1.MouseDoubleClick += loadClickedEvent;
+                    e1.DoubleClick += loadClickedEvent;
+                    e1.OnPnlDoubleClick += loadClickedEvent;
 
                     e1.BringToFront();
                     lstUCEvent.Add(e1);
                     //dataGridView1.Controls.Add(lstUCEvent[lstUCEvent.Count - 1]);
                     dataGridView1.Controls.Add(lstUCEvent[lstUCEvent.Count - 1]);
                     
-
                 }
 
             }
+        }
+        public void deleteEvent(object sender, EventArgs e)
+        {
+
+            if (clsEvent.listEvent.Remove(addEvent.objEvent))
+            {
+                loadEvents();
+                addEvent.Visible = false;
+                clsEvent.saveEvents();
+            }
+            
         }
     }
 }

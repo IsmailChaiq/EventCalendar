@@ -31,11 +31,12 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblName = new System.Windows.Forms.Label();
             this.lblInfos = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(128, 11);
@@ -56,23 +57,34 @@
             this.lblInfos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblInfos.Location = new System.Drawing.Point(3, 38);
             this.lblInfos.Name = "lblInfos";
-            this.lblInfos.Size = new System.Drawing.Size(125, 97);
+            this.lblInfos.Size = new System.Drawing.Size(122, 97);
             this.lblInfos.TabIndex = 2;
             this.lblInfos.Text = "lblInfos";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.panel1);
+            this.panel2.Controls.Add(this.lblInfos);
+            this.panel2.Controls.Add(this.lblName);
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(128, 135);
+            this.panel2.TabIndex = 3;
+            this.panel2.DoubleClick += new System.EventHandler(this.panel2_DoubleClick);
             // 
             // Event
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.Controls.Add(this.lblInfos);
-            this.Controls.Add(this.lblName);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panel2);
             this.Name = "Event";
             this.Size = new System.Drawing.Size(128, 135);
             this.Load += new System.EventHandler(this.Event_Load);
+            this.DoubleClick += new System.EventHandler(this.Event_DoubleClick);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -81,5 +93,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Label lblInfos;
+        public System.Windows.Forms.Panel panel2;
     }
 }
